@@ -1,5 +1,16 @@
+const nodemailer = require('nodemailer');
+const sendGrid = require('nodemailer-sendgrid-transport');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+
+
+var transporter = nodemailer.createTransport(sendGrid({
+    auth: {
+        api_key: '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'
+    }
+}));
+
+
 
 exports.GetSignup = (req, res) => {
     res.render('signup', {
@@ -34,8 +45,15 @@ exports.PostSignup = (req, res) => {
                         console.log("User created.");
                         console.log("Name: " + user.name);
                         res.redirect('/login');
-                    })
-                    .catch(error => console.log(error));
+
+                        return transporter.sendMail({
+                            to: email,
+                            from: 'mathpac.dev@gmail.com',
+                            subject: 'Bem vindo à minha loja!',
+                            html: '<h1>Você foi cadastrado com sucesso.</h1> <p>Faça login na loja e comece suas compras agora mesmo!</p>'
+                        })
+                        .catch(error => {console.log(error)});
+                    });
                 })
             })
             .catch(error => console.log(error));         
@@ -60,12 +78,12 @@ exports.GetLogin = (req, res) => {
 }
 
 exports.PostLogin = (req, res) => {
-    const name = req.body.name;
+    const email = req.body.email;
     const password = req.body.password;
 
     User.findOne({
         where: {
-            name: name,
+            email: email,
         }
     })
     .then(user => {
