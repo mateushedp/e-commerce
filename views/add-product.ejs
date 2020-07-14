@@ -1,0 +1,31 @@
+<%- include('partials/head') %>
+
+</head>
+
+<body>
+
+    <%- include('partials/navigation') %>
+
+    <main>
+        <h2>Adicionar Produtos</h2>
+
+        <form class="main-form" action="/admin/add-product" method="POST">
+            <label for="title">Nome:</label>
+            <input name="title" id="title" />
+
+            <label for="price">Preço:</label>
+            <input type="number" name="price" id="price" step="any" />
+
+            <label for="description">Descricao:</label>
+            <textarea name="description" id="description"></textarea>
+
+            <label for="imageUrl">URL da Imagem:</label>
+            <input name="imageUrl" id="imageUrl" />
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <button class="btn">cadastrar</button>
+        </form>
+    </main>
+
+    <%- include('partials/footer') %>

@@ -1,0 +1,37 @@
+<%- include('partials/head') %>
+
+</head>
+
+<body>
+
+   <%- include('partials/navigation') %>
+
+   <main>
+      <h2>Compras</h2>
+      
+      <% if (orders.length>0) { %>
+        <div class="grid">
+        <ul>
+        <% for(order of orders) { %>
+            <li>
+                <h3>ID: #<%= order.id  %> </h3>
+                <ul>
+                    <% for(item of order.products) {%> 
+                        <li><%= item.title %> - <%= item.orderItem.quantity %>  </li>
+                    <% } %> 
+                </ul>
+            </li>
+            
+         
+        <% } %>
+        </ul>
+        </div>
+      
+        <% }else{ %>
+        <h2>Nada aqui!</h2>
+        <% } %>   
+      
+
+   </main>
+
+   <%- include('partials/footer') %>

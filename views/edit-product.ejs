@@ -1,0 +1,32 @@
+<%- include('partials/head') %>
+
+</head>
+
+<body>
+
+    <%- include('partials/navigation') %>
+
+    <main>
+        <h2>Editar Produtos</h2>
+
+        <form class="main-form" action="/admin/edit-product" method="POST">
+            <label for="title">Nome:</label>
+            <input name="title" id="title" value="<%= prod.title %>" />
+
+            <label for="price">Preço:</label>
+            <input type="number" name="price" id="price" step="any" value="<%= prod.price %>"/>
+
+            <label for="description">Descricao:</label>
+            <textarea name="description" id="description"><%= prod.description %></textarea>
+
+            <label for="imageUrl">URL da Imagem:</label>
+            <input name="imageUrl" id="imageUrl" value="<%- prod.imageUrl %>" />
+
+            <input type="hidden" value="<%=prod.id%>" name="id">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <button class="btn">editar</button>
+        </form>
+    </main>
+
+    <%- include('partials/footer') %>

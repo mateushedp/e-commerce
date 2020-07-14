@@ -1,0 +1,48 @@
+<%- include('partials/head') %>
+
+</head>
+
+<body>
+
+   <%- include('partials/navigation') %>
+
+   <main>
+      <h2>Lista de Produtos</h2>
+      
+      <% if (prods.length>0) { %>
+         <div class="grid">
+
+         <% for(prod of prods) { %>
+            <div class="product-card">
+               <a href="/details/<%= prod.id %>">
+                  <img src="<%=prod.imageUrl%> " alt="">
+               </a>
+               <div>
+                  <h4><%= prod.title %> </h4>
+                  <p><%= prod.price %></p>
+
+                  <% if(loggedIn) { %> 
+                     <form action="/cart" method="POST">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" value="<%=prod.id%>" name="id">
+                        <button class="btn">Comprar</button>
+                    </form>
+                  <% } %> 
+                  
+               </div>               
+            </div>
+         
+         <% } %>
+      </div>
+
+      <% } %>
+      
+
+         
+
+         
+
+
+   </main>
+
+   <%- include('partials/footer') %>

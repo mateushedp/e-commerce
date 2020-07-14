@@ -1,0 +1,285 @@
+/* global */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    font-family: sans-serif;
+    height: 100%;   
+}
+
+body {
+    position: relative;
+    background-color: #EEEEEE;
+    min-height: 100%;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    margin: 5px auto;
+    padding: 9px;
+    height: 35px;
+    width: 150px;
+    background-color:  #238c91;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.center{
+    margin: 10px auto;
+    text-align: center;
+}
+/* navbar */
+
+.main-header {
+    background-color: #238c91;
+    font-size: 22px;
+    width: 100%;
+    height: 6rem;
+}
+.main-header-nav {
+    height: 100%; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main-header-nav ul {
+    list-style: none;
+    display: flex;
+}
+
+.main-header-item,
+.main-header-item a,
+.main-header-item button {
+    margin: 0 10px;
+    padding: 0;
+    text-decoration: none;
+    color: white;
+    font: inherit;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.main-header-item a:hover,
+.main-header-item button:hover{
+    color: #dedfe0;
+}
+
+.main-header-item .active{
+    color:#a3a3a3;
+}
+.main-header-item button:focus {
+    outline: none;
+}
+
+/*grid*/
+main {
+    width: 1096px;
+    background-color: white; 
+    margin: 3rem auto;
+    padding: 40px 20px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.product-card {
+    width: 220px;
+    height: 300px;
+    margin:10px 22px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 5px;
+}
+
+.product-card a {
+    text-decoration: none;
+    color: black;
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+}
+
+.product-card div {
+    padding: 2px 8px;
+    text-align: center;
+}
+
+/*details*/
+
+.product-box{
+    display: flex;
+    width: 100%;
+    height: 400px;
+    border: 2px solid red;
+}
+
+.product-box img {
+    border: 2px solid black;
+    width: 30%;
+}
+
+.product-description {
+    border: 2px solid blue;
+    width: 40%;
+}
+
+.product-description p {
+    font-size: 20px;
+    margin: 10px;
+    text-align: justify;
+    height: 50%;
+    border: 2px solid blue;
+}
+
+.buttons{
+    margin: 10px;
+    text-align: center;
+    height: 100px;
+    border: 2px solid blue;
+}
+
+/* add product */
+
+.main-form {
+    width: 50%;
+    border: 2px solid #238c91;
+    border-radius: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    padding: 20px 10px;
+}
+
+.main-form label{
+    display: flex;
+    justify-content: start;
+    width: 100px;
+    margin: 5px 10px;
+    padding: 5px 0;
+}
+
+.main-form input, textarea {
+    font-size: 16px;
+    width: 360px;
+    display: flex;
+    justify-content: flex-end;
+    margin: 5px 5px 5px 0;
+    height: 35px;
+    border: none;
+    border-bottom: 1.2px solid #7f8788;
+    padding: 5px;
+    transition: 0.1s ease-in;
+}
+
+.main-form textarea {
+    height: 50px;
+}
+
+.main-form input:focus, textarea:focus {
+    outline: none;
+    border-bottom: 1.5px solid #238c91;
+}
+
+.main-form button{
+    margin: 5px auto;
+    height: 35px;
+    width: 150px;
+    background-color:  #238c91;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/*cart*/
+.cart {
+    display: grid;
+    list-style: none;
+}
+
+.cart-item {
+    background-color: #dedfe0;
+    width: 70%;
+    height: 60px;
+    margin: 5px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+
+}
+
+.cart-item img {
+    max-height: 100%;
+    width: 150px;
+}
+
+.cart-item p {
+    margin: 30px;
+    display: inline;
+}
+
+.cart-item .btn {
+    width: 100px;
+    margin: 10px;
+    outline: none;
+}
+
+/*messages */
+.user-message {
+    margin: auto;
+    width: 50%;
+    border: 2px solid #238c91;
+    border-radius: 10px;
+    padding: 0.5rem;
+    background-color:  #238c91;
+    color: white;
+}
+
+.user-message-error {
+    border: 2px solid #de1d1d;
+    background-color:  #de1d1d;
+}
+
+
+
+/*footer*/
+footer {
+    display: flex;
+    justify-content: center;
+    color: white;
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    background-color: #238c91;
+    margin-bottom: -8rem;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+}

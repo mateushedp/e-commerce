@@ -1,0 +1,47 @@
+<%- include('partials/head') %>
+
+</head>
+
+<body>
+
+   <%- include('partials/navigation') %>
+
+   <main>
+      <h2>Carrinho</h2>
+      
+      <% if (prods.length>0) { %>
+         <ul class="cart">
+
+         <% for(prod of prods) { %>
+            <li class="cart-item">
+               <img src="<%= prod.imageUrl %>" alt="">
+               <div>
+                  <p><%= prod.title %> </p>
+                  <p>Quantidade: <%= prod.cartItem.quantity %></p>
+               </div>
+                  <form action="/cart-delete-product" method="POST">
+                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                     <input type="hidden" value="<%=prod.id%>" name="id">
+                     <button class="btn">Delete</button>
+                 </form>
+
+            </li>
+            
+         
+         <% } %>
+         </ul>
+      <div class="center">
+         <form action="/create-order" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn">Order Now</button>
+         </form>
+      </div>
+      
+      <% } else {%>
+      <h2>Sem produtos</h2>
+      <% } %> 
+
+
+   </main>
+
+   <%- include('partials/footer') %>
