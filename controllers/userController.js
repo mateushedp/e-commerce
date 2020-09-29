@@ -1,7 +1,9 @@
 const Product = require('../models/Product');
 const User = require('../models/User');
+const errorHandler = require('../util/errorHelper');
 
-exports.ShowsHomePage = (req, res)=> {
+
+exports.ShowsHomePage = (req, res, next)=> {
     Product.findAll()
     .then(products => {
         res.render('home', {
@@ -10,12 +12,10 @@ exports.ShowsHomePage = (req, res)=> {
             pageTitle: "Home"
         });
     })
-    .catch(error => {
-        console.log(error);
-    })
+    .catch(errorHandler(next));
 };
 
-exports.ShowsProductDetails = (req, res) => {
+exports.ShowsProductDetails = (req, res, next) => {
     let id = req.params.id;
     Product.findByPk(id)
     .then(product => {
@@ -25,11 +25,10 @@ exports.ShowsProductDetails = (req, res) => {
             pageTitle: product.title
         })
     })
-    .catch(error => console.log(error));
-
+    .catch(errorHandler(next));
 };
 
-exports.GetCart = (req, res) => {
+exports.GetCart = (req, res, next) => {
     User.findByPk(req.session.user.id)
     .then(user => {
         user.getCart()
@@ -42,13 +41,13 @@ exports.GetCart = (req, res) => {
                     pageTitle: "Carrinho"
                 })
             })
-            .catch(error => console.log(error));
+            .catch(errorHandler(next));
         })
-        .catch(error => console.log(error));
+        .catch(errorHandler(next));
     })
 }
 
-exports.PostCart = (req, res) => {
+exports.PostCart = (req, res, next) => {
     const prodId = req.body.id;
     let fetchedCart;
     let newQuantity = 1;
@@ -83,11 +82,11 @@ exports.PostCart = (req, res) => {
     .then(() => {
         res.redirect('/cart');
     })
-    .catch(error => console.log(error));
+    .catch(errorHandler(next));
     })
 }
 
-exports.PostCartDeleteProduct = (req, res) => {
+exports.PostCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.id;
     User.findByPk(req.session.user.id)
     .then(user => {
@@ -104,11 +103,11 @@ exports.PostCartDeleteProduct = (req, res) => {
     .then(() => {
         res.redirect('/cart');
     })
-    .catch(error => console.log(error));
+    .catch(errorHandler(next));
     })
 }
 
-exports.PostOrder = (req, res) => {
+exports.PostOrder = (req, res, next) => {
     let fetchedCart;
     let thisUser
     User.findByPk(req.session.user.id)
@@ -132,13 +131,15 @@ exports.PostOrder = (req, res) => {
             return fetchedCart.setProducts(null);
         })
         .then(result => {
-            res.redirect('/orders');
+            req.session.save(() =>{
+                res.redirect('/orders');
+            })
         })
-        .catch(error => console.log(error));
+        .catch(errorHandler(next));
     })
 }
 
-exports.GetOrders = (req, res) => {
+exports.GetOrders = (req, res, next) => {
     User.findByPk(req.session.user.id)
     .then(user => {
         user.getOrders({include: ['products']})
@@ -150,6 +151,6 @@ exports.GetOrders = (req, res) => {
         })
 
     })
-    .catch(error => console.log(error));
+    .catch(errorHandler(next));
     })
 }

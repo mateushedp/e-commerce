@@ -13,15 +13,24 @@
             <div class="user-message user-message-error"><%= errorMessage %> </div>
         <% } %> 
 
-        <form class="main-form" action="/signup" method="POST">
+        <form class="main-form" action="/signup" method="POST" novalidate>
             <label for="name">Nome:</label>
-            <input name="name" id="name" />
+            <input name="name" value="<%=oldInput.name %>"/>
 
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" />
+            <input
+            class="<%= validationErrors.find(error=> error.param === 'email') ? 'invalid' : '' %>" 
+            type="email" name="email" id="email" value="<%=oldInput.email %>"/>
 
             <label for="password">Senha:</label>
-            <input type="password" name="password" id="password" />
+            <input 
+            class="<%= validationErrors.find(error=> error.param === 'password') ? 'invalid' : '' %>"
+            type="password" name="password" id="password" value="<%=oldInput.password%>"/>
+            <label for="confirmPassword">Confirme sua senha:</label>
+            <input
+            class="<%= validationErrors.find(error=> error.param === 'confirmPassword') ? 'invalid' : '' %>"
+            type="password" name="confirmPassword" id="confirmPassword" />
+
 
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 

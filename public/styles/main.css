@@ -134,16 +134,13 @@ main {
     display: flex;
     width: 100%;
     height: 400px;
-    border: 2px solid red;
 }
 
 .product-box img {
-    border: 2px solid black;
     width: 30%;
 }
 
 .product-description {
-    border: 2px solid blue;
     width: 40%;
 }
 
@@ -152,17 +149,36 @@ main {
     margin: 10px;
     text-align: justify;
     height: 50%;
-    border: 2px solid blue;
+    padding: 5px;
+}
+
+.product-payment {
+    width: 30%;
+
+}
+
+.product-payment p {
+    text-align: center;
+    font-size: 50px;
+    margin:20px 0;
+}
+
+.product-payment form {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.product-payment button {
+    width: 200px;
 }
 
 .buttons{
     margin: 10px;
     text-align: center;
     height: 100px;
-    border: 2px solid blue;
 }
 
-/* add product */
+/* forms */
 
 .main-form {
     width: 50%;
@@ -203,6 +219,11 @@ main {
     outline: none;
     border-bottom: 1.5px solid #238c91;
 }
+
+.main-form .invalid {
+    border-bottom: 2px solid red;
+}
+
 
 .main-form button{
     margin: 5px auto;
@@ -252,6 +273,7 @@ main {
 
 /*messages */
 .user-message {
+    text-align: center;
     margin: auto;
     width: 50%;
     border: 2px solid #238c91;

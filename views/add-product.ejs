@@ -9,18 +9,25 @@
     <main>
         <h2>Adicionar Produtos</h2>
 
+        <% if(errorMessage){ %> 
+            <div class="user-message user-message-error"><%= errorMessage %> </div>
+        <% } %> 
         <form class="main-form" action="/admin/add-product" method="POST">
-            <label for="title">Nome:</label>
-            <input name="title" id="title" />
+            <label for="title">Titulo:</label>
+            <input
+            class="<%= validationErrors.find(error=> error.param === 'title') ? 'invalid' : '' %>" 
+            name="title" value="<%= oldInput.title %>" />
 
             <label for="price">Preço:</label>
-            <input type="number" name="price" id="price" step="any" />
+            <input
+            class="<%= validationErrors.find(error=> error.param === 'price') ? 'invalid' : '' %>" 
+            type="number" name="price" id="price" step="any" value="<%= oldInput.price %>" />
 
             <label for="description">Descricao:</label>
             <textarea name="description" id="description"></textarea>
 
             <label for="imageUrl">URL da Imagem:</label>
-            <input name="imageUrl" id="imageUrl" />
+            <input name="imageUrl" id="imageUrl" value="<%= oldInput.imageUrl %>"/>
 
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 

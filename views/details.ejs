@@ -12,6 +12,8 @@
             <div class="product-description">
                 <h2><%= prod.title %> </h2>
                 <p><%= prod.description %> </p>
+                <% if(loggedIn){ %>
+                    <% if(user.isAdmin){ %>  
                 <div class="buttons">
                     <a href="/admin/edit-product/<%= prod.id %>" class="btn">Edit</a>
                     <form action="/admin/delete-product" method="POST">
@@ -20,8 +22,17 @@
                         <button class="btn">Delete</button>
                     </form>
                 </div>
-                
+                <% } %>
+            <% } %> 
 
+            </div>
+            <div class="product-payment">
+                <p>R$ <%= prod.price %> </p>
+                <form action="/cart" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" value="<%=prod.id%>" name="id">
+                    <button class="btn">Comprar</button>
+                </form>
             </div>
        </div>
    </main>

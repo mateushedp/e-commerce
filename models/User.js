@@ -19,6 +19,19 @@ const User = sequelize.define('user', {
     password: {
         type: Sequelize.STRING, 
         allowNull: false
+    },
+    resetToken: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    resetTokenExpiration: {
+        type: Sequelize.DATE,
+        allowNull: true
+    },
+    isAdmin: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 });
 

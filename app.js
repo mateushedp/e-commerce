@@ -6,6 +6,8 @@ const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 
+require('dotenv').config();
+
 const Product = require('./models/Product');
 const User = require('./models/User');
 const Cart = require('./models/Cart');
@@ -25,13 +27,14 @@ app.set('view engine', 'ejs');
 const userRoutes = require('./routes/userRoutes'); 
 const adminRoutes = require('./routes/adminRoutes');
 const authRoutes = require('./routes/authRoutes');
+const errorController = require('./controllers/errorController');
 
 
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 app.use(session({
-    secret:'uma string longa',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: myStore,
@@ -54,12 +57,11 @@ app.use((req, res, next) => {
 app.use(userRoutes);
 app.use(authRoutes);
 app.use('/admin', adminRoutes);
-
-app.use((req, res) => {
-    res.status(404);
-    res.write("ERRO!");
-    res.end();
-});
+app.get('/500', errorController.get500);
+app.use(errorController.get404);
+// app.use((error, req, res, next) => {
+//     res.redirect('/500');
+// });
 
 Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);

@@ -2,12 +2,14 @@
     <nav class="main-header-nav">
         <ul> <!--itens da esquerda-->
             <li class="main-header-item"><a href="/" class="<%= path === '/' ? 'active' : ' ' %> ">inicio</a></li>
-            <li class="main-header-item"><a href="/admin/add-product" class="<%= path === '/add-product' ? 'active' : ' ' %> ">add produtos</a></li>
 
             <% if(loggedIn){ %>
                 <li class="main-header-item"><a href="/cart" class="<%= path === '/cart' ? 'active' : ' ' %> ">carrinho</a></li>
+            <% if(user.isAdmin) {%>
+            <li class="main-header-item"><a href="/admin/add-product" class="<%= path === '/add-product' ? 'active' : ' ' %> ">add produtos</a></li>                
+                <% } %> 
             <% } %> 
-            
+
         </ul>
 
         <ul> <!--itens da direita-->
