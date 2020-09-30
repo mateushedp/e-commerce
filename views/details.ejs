@@ -6,7 +6,7 @@
 
    <%- include('partials/navigation') %>
 
-   <main>
+   <main class="details-main">
        <div class="product-box">
            <img src="<%= prod.imageUrl %> " alt="">
             <div class="product-description">
@@ -26,15 +26,15 @@
             <% } %> 
 
             </div>
-            <div class="product-payment">
-                <p>R$ <%= prod.price %> </p>
-                <form action="/cart" method="POST">
-                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                    <input type="hidden" value="<%=prod.id%>" name="id">
-                    <button class="btn">Comprar</button>
-                </form>
-            </div>
        </div>
+       <div class="product-payment">
+        <p>R$ <%= prod.price %> </p>
+        <form action="/cart" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden" value="<%=prod.id%>" name="id">
+            <button class="btn">Comprar</button>
+        </form>
+        </div>
    </main>
 
    <%- include('partials/footer') %>

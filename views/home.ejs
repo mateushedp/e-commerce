@@ -19,15 +19,8 @@
                </a>
                <div>
                   <h4><%= prod.title %> </h4>
-                  <p><%= prod.price %></p>
+                  <p>R$ <%= prod.price %></p>
 
-                  <% if(loggedIn) { %> 
-                     <form action="/cart" method="POST">
-                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                        <input type="hidden" value="<%=prod.id%>" name="id">
-                        <button class="btn">Comprar</button>
-                    </form>
-                  <% } %> 
                   
                </div>               
             </div>

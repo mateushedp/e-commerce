@@ -2,29 +2,35 @@
 
 </head>
 
-<body>
+<body class="forms-body">
 
     <%- include('partials/navigation') %>
 
-    <main>
-        <h2>Login</h2>
-        <% if(errorMessage){ %> 
-            <div class="user-message user-message-error"><%= errorMessage %> </div>
-        <% } %> 
+    <main class="forms-main">
+        <div class="form-wrapper">
+            <h2>Login</h2>
+                    <% if(errorMessage){ %> 
+                        <div class="user-message user-message-error"><%= errorMessage %> </div>
+                    <% } %> 
 
-        <form class="main-form" action="/login" method="POST">
-            <label for="email">E-mail:</label>
-            <input name="email"/>
+                    <form class="main-form" action="/login" method="POST">
+                        <label for="email">E-mail:</label>
+                        <input name="email"/>
 
-            <label for="password">Senha:</label>
-            <input type="password" name="password"/>
-            
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <label for="password">Senha:</label>
+                        <input type="password" name="password"/>
+                        
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
-            <button class="btn">cadastrar</button>
-        </form>
-        <a href="/signup">Nao tem cadastro?</a> <br>
-        <a href="/reset-password">Redefinir senha</a>
+                        <button class="btn">cadastrar</button>
+                    </form>
+                    <div class="form-options">
+                        <a href="/signup">Nao tem cadastro?</a> <br>
+                        <a href="/reset-password">Redefinir senha</a>
+                    </div>
+        </div>
+        
+        
     </main>
 
     <%- include('partials/footer') %>

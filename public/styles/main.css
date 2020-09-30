@@ -13,7 +13,7 @@ html {
 
 body {
     position: relative;
-    background-color: #EEEEEE;
+    background-color: rgb(238, 238, 238);
     min-height: 100%;
 }
 
@@ -50,7 +50,7 @@ h2 {
 
 .main-header {
     background-color: #238c91;
-    font-size: 22px;
+    font-size: 26px;
     width: 100%;
     height: 6rem;
 }
@@ -94,10 +94,10 @@ h2 {
 
 /*grid*/
 main {
-    width: 1096px;
+    width: 92%;
     background-color: white; 
     margin: 3rem auto;
-    padding: 40px 20px;
+    padding: 20px;
 }
 
 .grid {
@@ -107,41 +107,67 @@ main {
 
 .product-card {
     width: 220px;
-    height: 300px;
-    margin:10px 22px;
+    height: 280px;
+    margin:20px 35px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     border-radius: 5px;
 }
 
-.product-card a {
-    text-decoration: none;
-    color: black;
-}
-
 .product-card img {
     width: 100%;
-    height: 200px;
+    height: 210px;
 }
 
 .product-card div {
-    padding: 2px 8px;
-    text-align: center;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.product-card div h4 {
+    font-size: 16px;
+    color: #24282b;
+    font-weight: lighter;
+}
+
+.product-card div p {
+    font-size: 24px;
+    color: black;
+    font-weight: bolder;
 }
 
 /*details*/
 
+.details-main {
+    display: flex;
+    flex-wrap: nowrap;
+    background-color: transparent;
+    padding: 0;
+}
+
+.details-main div {
+    background-color: white;
+}
+
 .product-box{
     display: flex;
-    width: 100%;
+    width: 75%;
     height: 400px;
+    padding: 10px 20px;
+    border-radius: 15px;
 }
 
 .product-box img {
-    width: 30%;
+    width: 40%;
 }
 
 .product-description {
-    width: 40%;
+    width: 55%;
+    margin-left: 20px;
+    padding: 5px;
+}
+
+.product-description h2 {
+    justify-content: left;
 }
 
 .product-description p {
@@ -149,27 +175,31 @@ main {
     margin: 10px;
     text-align: justify;
     height: 50%;
-    padding: 5px;
 }
 
 .product-payment {
-    width: 30%;
-
+    width: 25%;
+    height: 50%;
+    margin-left: 10px;
+    text-align: center;
+    border-radius: 15px 50px 30px;
 }
 
 .product-payment p {
-    text-align: center;
     font-size: 50px;
-    margin:20px 0;
+    margin: 20px 0;
+    font-weight: 500;
 }
 
 .product-payment form {
-    margin-top: 60px;
-    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .product-payment button {
     width: 200px;
+    height: 50px;
+    font-size: 24px;
 }
 
 .buttons{
@@ -180,13 +210,29 @@ main {
 
 /* forms */
 
+.forms-body {
+    background-color: white;
+}
+
+.forms-main {
+    background-color: transparent;
+    margin-top: 0;
+}
+
+.form-wrapper {
+    width: 570px;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 20px;
+}
+
 .main-form {
-    width: 50%;
+    width: 100%;
     border: 2px solid #238c91;
     border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
-    margin: 20px auto;
+    margin: 20px 0;
     padding: 20px 10px;
 }
 
@@ -217,7 +263,7 @@ main {
 
 .main-form input:focus, textarea:focus {
     outline: none;
-    border-bottom: 1.5px solid #238c91;
+    border-bottom: 2px solid #238c91;
 }
 
 .main-form .invalid {
@@ -226,14 +272,18 @@ main {
 
 
 .main-form button{
-    margin: 5px auto;
-    height: 35px;
-    width: 150px;
+    margin: 30px auto 5px;
+    height: 40px;
+    width: 250px;
     background-color:  #238c91;
     color: white;
     border: none;
-    font-size: 16px;
+    font-size: 20px;
     border-radius: 5px;
+}
+
+.form-options {
+    text-align: center;
 }
 
 /*cart*/
@@ -275,7 +325,7 @@ main {
 .user-message {
     text-align: center;
     margin: auto;
-    width: 50%;
+    width: 100%;
     border: 2px solid #238c91;
     border-radius: 10px;
     padding: 0.5rem;

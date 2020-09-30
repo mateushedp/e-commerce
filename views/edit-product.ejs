@@ -2,12 +2,13 @@
 
 </head>
 
-<body>
+<body class="forms-body">
 
     <%- include('partials/navigation') %>
 
-    <main>
-        <h2>Editar Produtos</h2>
+    <main class="forms-main">
+        <div class="form-wrapper">
+            <h2>Editar Produtos</h2>
 
         <% if(errorMessage){ %> 
             <div class="user-message user-message-error"><%= errorMessage %> </div>
@@ -36,6 +37,8 @@
 
             <button class="btn">editar</button>
         </form>
+        </div>
+        
     </main>
 
     <%- include('partials/footer') %>
