@@ -2,27 +2,32 @@
 
 </head>
 
-<body>
+<body class="forms-body">
 
    <%- include('partials/navigation') %>
 
-   <main>
+   <main class="forms-main"> 
       <h2>Carrinho</h2>
       
       <% if (prods.length>0) { %>
          <ul class="cart">
+            <li class="cart-item description">
+               <p class="col1">Imagem</p>
+               <p class="col2">Produto</p>
+               <p class="col3">Quantidade</p>
+               <p class="col4">Deletar</p>
+            </li>
+
 
          <% for(prod of prods) { %>
             <li class="cart-item">
-               <img src="<%= prod.imageUrl %>" alt="">
-               <div>
-                  <p><%= prod.title %> </p>
-                  <p>Quantidade: <%= prod.cartItem.quantity %></p>
-               </div>
-                  <form action="/cart-delete-product" method="POST">
+               <img src="<%= prod.imageUrl %>"  class="col1 img">
+                  <h4 class="col2"><%= prod.title %> </h4>
+                  <p class="col3"><%= prod.cartItem.quantity %></p>
+                  <form action="/cart-delete-product" method="POST"  class="col4">
                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                      <input type="hidden" value="<%=prod.id%>" name="id">
-                     <button class="btn">Delete</button>
+                     <button class="delete-btn">X</button> 
                  </form>
 
             </li>
