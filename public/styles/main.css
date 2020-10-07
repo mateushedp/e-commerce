@@ -109,7 +109,7 @@ main {
     width: 220px;
     height: 280px;
     margin:20px 35px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
     border-radius: 5px;
 }
 
@@ -254,7 +254,7 @@ main {
     border: none;
     border-bottom: 1.2px solid #7f8788;
     padding: 5px;
-    transition: 0.1s ease-in;
+    transition: 0.1s ease-in-out;
 }
 
 .main-form textarea {
@@ -287,15 +287,19 @@ main {
 }
 
 /*cart*/
+.cart-wrapper {
+    display: flex;
+}
+
 .cart {
-    width: 70%;
+    width: 75%;
     list-style: none;
 }
 
 .cart-item {
     border-bottom: 1px solid #7f8788;
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-columns: 16% 16% 16% 16% 16% 16%;
     height: 130px;
     align-items: center;
     text-align: center;
@@ -333,6 +337,10 @@ main {
     grid-column: 5;
 }
 
+.col5 {
+    grid-column: 6;
+}
+
 .delete-btn {
     margin: 0;
     background-color: transparent;
@@ -340,40 +348,16 @@ main {
     font-size: 18px;
     cursor: pointer;
 }
-/*
-.cart {
-    display: grid;
-    list-style: none;
-}
 
-.cart-item {
-    width: 70%;
-    height: 100px;
-    padding: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-
+.cart-summary {
+    border-radius: 10px;
+    background-color:rgb(238, 238, 238);
+    line-height: 60px;
+    width: 25%;
+    height: 20rem;
+    margin-left: 20px;
+    padding: 5px 15px;
 }
-
-.cart-item img {
-    max-height: 100%;
-    width: 150px;
-}
-
-.cart-item p {
-    margin: 30px;
-    display: inline;
-}
-
-.cart-item .btn {
-    width: 100px;
-    margin: 10px;
-    outline: none;
-}
-*/
 
 /*messages */
 .user-message {

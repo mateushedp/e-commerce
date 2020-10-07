@@ -14,7 +14,7 @@
             <div class="user-message user-message-error"><%= errorMessage %> </div>
         <% } %> 
 
-        <form class="main-form" action="/admin/edit-product" method="POST">
+        <form class="main-form" action="/admin/edit-product" method="POST" enctype="multipart/form-data">
             <label for="title">Nome:</label>
             <input 
             class="<%= validationErrors.find(error=> error.param === 'title') ? 'invalid' : '' %>" 
@@ -29,8 +29,11 @@
             <label for="description">Descricao:</label>
             <textarea name="description" id="description"><%= prod.description %></textarea>
 
-            <label for="imageUrl">URL da Imagem:</label>
-            <input name="imageUrl" id="imageUrl" value="<%- prod.imageUrl %>" />
+            <!-- <label for="imageUrl">URL da Imagem:</label>
+            <input name="imageUrl" id="imageUrl" value="<%- prod.imageUrl %>" /> -->
+
+            <label for="image">Imagem:</label>
+            <input type="file" name="image" id="image" />
 
             <input type="hidden" value="<%=prod.id%>" name="id">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">

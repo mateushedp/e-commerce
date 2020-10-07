@@ -8,6 +8,9 @@
 
    <main class="forms-main"> 
       <h2>Carrinho</h2>
+      <div class="cart-wrapper">
+      
+      <% let totalPrice = 0; %> 
       
       <% if (prods.length>0) { %>
          <ul class="cart">
@@ -15,31 +18,36 @@
                <p class="col1">Imagem</p>
                <p class="col2">Produto</p>
                <p class="col3">Quantidade</p>
-               <p class="col4">Deletar</p>
+               <p class="col4">Preço</p>
+               <p class="col5">Deletar</p>
             </li>
 
 
          <% for(prod of prods) { %>
+            <% totalPrice+= parseFloat(prod.price*prod.cartItem.quantity)%> 
             <li class="cart-item">
-               <img src="<%= prod.imageUrl %>"  class="col1 img">
+               <img src="/<%= prod.imageUrl %>"  class="col1 img">
                   <h4 class="col2"><%= prod.title %> </h4>
                   <p class="col3"><%= prod.cartItem.quantity %></p>
-                  <form action="/cart-delete-product" method="POST"  class="col4">
+                  <p class="col4">R$ <%= (prod.price* prod.cartItem.quantity).toFixed(2)%> </p>
+                  <form action="/cart-delete-product" method="POST"  class="col5">
                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                      <input type="hidden" value="<%=prod.id%>" name="id">
                      <button class="delete-btn">X</button> 
                  </form>
-
             </li>
-            
-         
          <% } %>
          </ul>
-      <div class="center">
-         <form action="/create-order" method="POST">
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button type="submit" class="btn">Order Now</button>
-         </form>
+         <div class="cart-summary">
+            <h3>Resumo da compra:</h3>
+            <p>Produtos: R$ <%= totalPrice %> </p>
+            <p>Frete: </p>
+            <p>Total: </p>
+            <form action="/create-order" method="POST" class="center">
+               <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+               <button type="submit" class="btn">Order Now</button>
+            </form>
+         </div>
       </div>
       
       <% } else {%>

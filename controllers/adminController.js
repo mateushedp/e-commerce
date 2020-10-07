@@ -22,8 +22,22 @@ exports.PostAddProduct = (req, res, next) => {
     const title = req.body.title;
     const price = req.body.price;
     const description = req.body.description;
-    const imageUrl = req.body.imageUrl;
+    const image = req.file;
     const errors = validationResult(req);
+
+    if(!image){
+        return res.status(422).render('add-product', {
+            path: '/add-product',
+            pageTitle: "Adicionar Produto",
+            errorMessage: "Arquivo anexado não é uma imagem",
+            oldInput: {
+                title: title,
+                price: price,
+                description: description,
+            },
+            validationErrors: []
+        })
+    }
 
     if(!errors.isEmpty()){
         console.log(errors.array());
@@ -35,12 +49,11 @@ exports.PostAddProduct = (req, res, next) => {
                 title: title,
                 price: price,
                 description: description,
-                imageUrl: imageUrl
             },
             validationErrors: errors.array()
         })
     }
-
+    const imageUrl = image.path;
     
     User.findByPk(req.session.user.id)
     .then(user => {
@@ -87,8 +100,9 @@ exports.PostEditProduct = (req, res, next) => {
     const title = req.body.title;
     const price = req.body.price;
     const description = req.body.description;
-    const imageUrl = req.body.imageUrl;
+    const image = req.file;
     const errors = validationResult(req);
+
 
     if(!errors.isEmpty()){
         console.log(errors.array());
@@ -100,17 +114,20 @@ exports.PostEditProduct = (req, res, next) => {
                 title: title,
                 price: price,
                 description: description,
-                imageUrl: imageUrl
             },
             validationErrors: errors.array()
         })
     }
 
+    if(image){
+        Product.update({imageUrl: image.path}, {where: {id:id}});
+    }
+
     Product.update({
         title: title,
         price: price,
-        description: description,
-        imageUrl: imageUrl
+        description: description
+        
     },
     {
         where: {id: id}
