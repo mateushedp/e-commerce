@@ -11,6 +11,7 @@ router.post('/cart', isAuth, userController.PostCart);
 router.post('/cart-delete-product', isAuth, userController.PostCartDeleteProduct);
 router.get('/orders', isAuth, userController.GetOrders);
 router.post('/create-order', isAuth, userController.PostOrder);
+router.get('/orders/:orderId', isAuth, userController.GetInvoice);
 
 
 

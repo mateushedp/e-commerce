@@ -13,15 +13,30 @@
         </ul>
 
         <!--itens da direita-->
-        <div class="dropdown">
-            <button class="main-header-item">entrar</button>
-            <ul>
-                <li class="main-header-item"><a href="/login" class="<%= path === '/login' ? 'active' : 'dropdown-link' %> ">login</a></li>
-                <li class="main-header-item"><a href="/signup" class="<%= path === '/signup' ? 'active' : 'dropdown-link' %> ">cadastro</a></li>
-
-            </ul>
-
-        </div>
+        <ul class="dropdown">
+            <li class="main-header-item drop-item">
+                <p>
+                <% if(!loggedIn){ %>
+                entrar
+                </p>
+                <ul>
+                    <li class="main-header-item"><a href="/login" class="<%= path === '/login' ? 'active' : ' ' %> ">login</a></li>
+                    <li class="main-header-item"><a href="/signup" class="<%= path === '/signup' ? 'active' : ' ' %> ">cadastro</a></li>
+                </ul>
+                <% }else{ %>
+                    Olá, <%= user.name%> 
+                </p>
+                <ul>
+                    <li class="main-header-item">
+                        <form action="/logout" method="POST">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">  
+                            <button type="submit">logout</button>
+                        </form>
+                    </li>
+                </ul>
+                <% } %> 
+            </li>
+        </ul>
 
 
 
