@@ -22,7 +22,7 @@ exports.PostAddProduct = (req, res, next) => {
     const title = req.body.title;
     const price = req.body.price;
     const description = req.body.description;
-    const image = req.file;
+    const image = req.files;
     const errors = validationResult(req);
 
     if(!image){

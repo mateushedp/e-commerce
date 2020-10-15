@@ -46,7 +46,7 @@ const errorController = require('./controllers/errorController');
 
 
 app.use(bodyparser.urlencoded({ extended: false }));
-app.use(multer({storage: fileStorage, fileFilter: fileFilter}).single('image'));
+app.use(multer({storage: fileStorage, fileFilter: fileFilter}).array('image', 4));
 app.use(bodyparser.json());
 
 app.use(session({

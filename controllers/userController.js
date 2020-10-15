@@ -5,6 +5,7 @@ const Product = require('../models/Product');
 const User = require('../models/User');
 const Order = require('../models/Order');
 const errorHandler = require('../util/errorHelper');
+const Cart = require('../models/Cart');
 
 
 exports.ShowsHomePage = (req, res, next)=> {
@@ -160,6 +161,7 @@ exports.GetOrders = (req, res, next) => {
 }
 
 exports.GetInvoice = (req, res, next) => {
+    let totalPrice = 0;
     const orderId = req.params.orderId;
     Order.findByPk(orderId)
     .then(order => {
@@ -173,10 +175,25 @@ exports.GetInvoice = (req, res, next) => {
         const invoicePath = path.join('data', 'invoices', invoiceName);
         const pdfDoc = new PDFDocument();
         res.setHeader('Content-Type', 'application/pdf');
-        res.setHeader('Content-Disposition', 'attachment; filename="' + invoiceName +'"');
+        res.setHeader('Content-Disposition', 'inline; filename="' + invoiceName +'"');
         pdfDoc.pipe(fs.createWriteStream(invoicePath));
         pdfDoc.pipe(res);
+        pdfDoc.fontSize(26).text("Sua fatura");
+        pdfDoc.text("---------------------------");
+        order.getProducts()
+        .then(products => {
+            for(prod of products){
+                totalPrice+= parseFloat(prod.price * prod.orderItem.quantity);
+                pdfDoc.fontSize(14).text(prod.title + ' - ' + prod.orderItem.quantity + 'x' + ' R$' + prod.price);
+            }
+            pdfDoc.text(' ');
+            pdfDoc.fontSize(20).text('Total: R$' + totalPrice);
+            pdfDoc.end();
+            
 
+        })
+        
+        
 
     })
     .catch(errorHandler(next));
