@@ -9,7 +9,8 @@ const Cart = require('../models/Cart');
 
 
 exports.ShowsHomePage = (req, res, next)=> {
-    Product.findAll()
+    
+    Product.findAll({include: ['images']})
     .then(products => {
         res.render('home', {
             prods: products,
@@ -22,7 +23,7 @@ exports.ShowsHomePage = (req, res, next)=> {
 
 exports.ShowsProductDetails = (req, res, next) => {
     let id = req.params.id;
-    Product.findByPk(id)
+    Product.findByPk(id, {include: ['images']})
     .then(product => {
         res.render('details', {
             prod: product,
@@ -38,7 +39,7 @@ exports.GetCart = (req, res, next) => {
     .then(user => {
         user.getCart()
         .then(cart => {
-            return cart.getProducts()
+            return cart.getProducts({include: ['images']})
             .then(products => {
                 res.render('cart', {
                     prods: products,

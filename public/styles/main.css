@@ -214,12 +214,35 @@ main {
     border-radius: 15px;
 }
 
-.product-box img {
-    width: 40%;
+.product-images {
+    display: flex;
+    width: 45%;
+    height: 100%;
+    padding: 0;
+}
+
+.product-images .main-image{
+    margin-left: 10px;
+    width: 75%;
+    height: 100%;
+}
+
+.main-image img{
+    width: 100%;
+    height: 100%;
+}
+
+.image-roll {
+    width: 100px;
+}
+
+.image-roll img{
+    height: 25%;
+    width: 100%;
 }
 
 .product-description {
-    width: 55%;
+    width: 50%;
     margin-left: 20px;
     padding: 5px;
 }

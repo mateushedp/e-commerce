@@ -26,7 +26,7 @@
          <% for(prod of prods) { %>
             <% totalPrice+= parseFloat(prod.price*prod.cartItem.quantity)%> 
             <li class="cart-item">
-               <img src="/<%= prod.imageUrl %>"  class="col1 img">
+               <img src="/<%=prod.images[0].path%> "  class="col1 img">
                   <h4 class="col2"><%= prod.title %> </h4>
                   <p class="col3"><%= prod.cartItem.quantity %></p>
                   <p class="col4">R$ <%= (prod.price* prod.cartItem.quantity).toFixed(2)%> </p>

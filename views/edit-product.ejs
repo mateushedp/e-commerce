@@ -15,7 +15,7 @@
         <% } %> 
 
         <form class="main-form" action="/admin/edit-product" method="POST" enctype="multipart/form-data">
-            <label for="title">Nome:</label>
+            <label for="title">Titulo:</label>
             <input 
             class="<%= validationErrors.find(error=> error.param === 'title') ? 'invalid' : '' %>" 
             name="title" id="title" value="<%= prod.title %>" />
@@ -33,7 +33,7 @@
             <input name="imageUrl" id="imageUrl" value="<%- prod.imageUrl %>" /> -->
 
             <label for="image">Imagem:</label>
-            <input type="file" name="image" id="image" />
+            <input type="file" name="image" id="image" multiple/>
 
             <input type="hidden" value="<%=prod.id%>" name="id">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">

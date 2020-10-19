@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const Product = require('../models/Product');
 const User = require('../models/User');
+const Image = require('../models/Image');
 const errorHandler = require('../util/errorHelper');
 
 exports.GetAddProduct = (req, res, next) => {
@@ -11,8 +12,7 @@ exports.GetAddProduct = (req, res, next) => {
         oldInput: {
             title: '',
             price: '',
-            description: '',
-            imageUrl: ''
+            description: ''
         },
         validationErrors: [],
     });
@@ -22,10 +22,10 @@ exports.PostAddProduct = (req, res, next) => {
     const title = req.body.title;
     const price = req.body.price;
     const description = req.body.description;
-    const image = req.files;
+    const images = req.files;
     const errors = validationResult(req);
 
-    if(!image){
+    if(!images){
         return res.status(422).render('add-product', {
             path: '/add-product',
             pageTitle: "Adicionar Produto",
@@ -53,7 +53,7 @@ exports.PostAddProduct = (req, res, next) => {
             validationErrors: errors.array()
         })
     }
-    const imageUrl = image.path;
+    
     
     User.findByPk(req.session.user.id)
     .then(user => {
@@ -61,12 +61,19 @@ exports.PostAddProduct = (req, res, next) => {
             title: title,
             price: price,
             description: description,
-            imageUrl: imageUrl,
+        })
+        .then(prod => {
+            for(img of images){
+                prod.createImage({
+                    path: img.path
+                })
+            }
         })
         .then(result => {
-            console.log("Product created.");
-            console.log(result);
-            res.redirect('/');
+            console.log('Product created.');
+            req.session.save(() =>{
+                return res.redirect('/');
+            })
         })
         .catch(errorHandler(next));
     })
@@ -85,8 +92,7 @@ exports.GetEditProduct = (req, res, next) => {
             oldInput: {
                 title: '',
                 price: '',
-                description: '',
-                imageUrl: ''
+                description: ''
             },
             validationErrors: []
         });
@@ -95,12 +101,12 @@ exports.GetEditProduct = (req, res, next) => {
     
 }
 
-exports.PostEditProduct = (req, res, next) => {
+exports.PostEditProduct = async (req, res, next) => {
     const id = req.body.id;
     const title = req.body.title;
     const price = req.body.price;
     const description = req.body.description;
-    const image = req.file;
+    const images = req.files;
     const errors = validationResult(req);
 
 
@@ -118,25 +124,23 @@ exports.PostEditProduct = (req, res, next) => {
             validationErrors: errors.array()
         })
     }
-
-    if(image){
-        Product.update({imageUrl: image.path}, {where: {id:id}});
-    }
-
-    Product.update({
+    
+    const product = await Product.findByPk(id);
+    product.update({
         title: title,
         price: price,
         description: description
-        
-    },
-    {
-        where: {id: id}
-    })
-    .then(() => {
-        console.log("Product updated.");
-        res.redirect('/');
-    })
-    .catch(errorHandler(next));
+    });
+
+    if(images.length>0){
+        await Image.destroy({where:{productId:id}});
+        for(img of images){
+            await product.createImage({
+                path: img.path
+            })
+        }
+    }
+    res.redirect('/');
 
 }
 

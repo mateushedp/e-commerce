@@ -15,7 +15,8 @@
          <% for(prod of prods) { %>
             <div class="product-card">
                <a href="/details/<%= prod.id %>">
-                  <img src="/<%=prod.imageUrl%> " alt="">
+                  <img src="/<%=prod.images[0].path%> " alt=""> 
+                  
                </a>
                <div>
                   <h4><%= prod.title %> </h4>

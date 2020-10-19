@@ -8,7 +8,22 @@
 
    <main class="details-main">
        <div class="product-box">
-           <img src="/<%= prod.imageUrl %> " alt="">
+           <div class="product-images">
+            <div class="image-roll">
+                <% if(prod.images.length>1){ %> 
+                <% for(image of prod.images) {%>
+                    <img src="/<%=image.path%> " alt="">
+                    
+                <% } %>
+                <% } %> 
+               </div>
+            <div class="main-image">
+                <img src="/<%=prod.images[0].path%> " alt="">
+            </div>
+            
+           </div>
+           
+                      
             <div class="product-description">
                 <h2><%= prod.title %> </h2>
                 <p><%= prod.description %> </p>

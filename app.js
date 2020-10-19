@@ -13,6 +13,7 @@ const Cart = require('./models/Cart');
 const CartItem = require('./models/CartItem');
 const Order = require('./models/Order');
 const OrderItem = require('./models/OrderItem');
+const Img = require('./models/Image');
 require('dotenv').config();
 
 const app = express();
@@ -90,10 +91,13 @@ Order.belongsTo(User);
 User.hasMany(Order);
 Order.belongsToMany(Product, {through: OrderItem});
 Product.belongsToMany(Order, {through: OrderItem});
+Img.belongsTo(Product, {constraints: true, onDelete: 'CASCADE'});
+Product.hasMany(Img);
+
 
 
 sequelize
-    //.sync({force: true})
+    // .sync({force: true})
     .sync()
     .then(result => {
         app.listen(3000, () => {
