@@ -7,15 +7,32 @@ const Order = require('../models/Order');
 const errorHandler = require('../util/errorHelper');
 const Cart = require('../models/Cart');
 
+const ITEMS_PER_PAGE = 20;
+
 
 exports.ShowsHomePage = (req, res, next)=> {
-    
-    Product.findAll({include: ['images']})
+    const page = +req.query.page || 1;
+    let totalItems;
+
+    Product.count()
+    .then(numProducts => {
+        totalItems = numProducts;
+        return Product.findAll({
+            include: ['images'], 
+            offset: (page-1) * ITEMS_PER_PAGE, 
+            limit: ITEMS_PER_PAGE})
+    })
     .then(products => {
         res.render('home', {
             prods: products,
             path: '/',
-            pageTitle: "Home"
+            pageTitle: "Home",
+            currentPage: page,
+            hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+            hasPreviousPage: page > 1,
+            nextPage: page+1,
+            previousPage: page - 1,
+            lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
         });
     })
     .catch(errorHandler(next));
@@ -41,10 +58,15 @@ exports.GetCart = (req, res, next) => {
         .then(cart => {
             return cart.getProducts({include: ['images']})
             .then(products => {
+                let total = 0;
+                for(product of products){
+                    total += product.price * product.cartItem.quantity;
+                }
                 res.render('cart', {
                     prods: products,
                     path: '/cart',
-                    pageTitle: "Carrinho"
+                    pageTitle: "Carrinho",
+                    totalSum: total
                 })
             })
             .catch(errorHandler(next));
@@ -113,6 +135,31 @@ exports.PostCartDeleteProduct = (req, res, next) => {
     })
 }
 
+exports.GetCheckout = (req, res, next) => {
+    User.findByPk(req.session.user.id)
+    .then(user => {
+        user.getCart()
+        .then(cart => {
+            return cart.getProducts({include: ['images']})
+            .then(products => {
+                let total = 0;
+                for(product of products){
+                    total += product.price * product.cartItem.quantity;
+                }
+                console.log(total);
+                res.render('checkout', {
+                    prods: products,
+                    path: '/checkout',
+                    pageTitle: "Finalizar Compra",
+                    totalSum: total
+                })
+            })
+            .catch(errorHandler(next));
+        })
+        .catch(errorHandler(next));
+    })
+}
+
 exports.PostOrder = (req, res, next) => {
     let fetchedCart;
     let thisUser
@@ -133,10 +180,10 @@ exports.PostOrder = (req, res, next) => {
                 }))
             })
         })
-        .then(result => {
+        .then(() => {
             return fetchedCart.setProducts(null);
         })
-        .then(result => {
+        .then(() => {
             req.session.save(() =>{
                 res.redirect('/orders');
             })

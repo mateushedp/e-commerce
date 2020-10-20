@@ -193,6 +193,27 @@ main {
     font-weight: bolder;
 }
 
+.pagination {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #238c91;
+    padding: 0.3rem;
+    border: 1px solid #238c91;
+    border-radius: 3px;
+    margin: 0 0.3rem;
+}
+
+.pagination a:hover,
+.pagination a:active,
+.pagination a.active {
+    background-color: #238c91;
+    color: white;
+}
+
 /*details*/
 
 .details-main {
