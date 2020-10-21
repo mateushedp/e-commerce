@@ -2,41 +2,48 @@
     <nav class="main-header-nav">
         <ul> <!--itens da esquerda-->
             <li class="main-header-item"><a href="/" class="<%= path === '/' ? 'active' : ' ' %> ">inicio</a></li>
-
             <% if(loggedIn){ %>
-                <li class="main-header-item"><a href="/cart" class="<%= path === '/cart' ? 'active' : ' ' %> ">carrinho</a></li>
             <% if(user.isAdmin) {%>
             <li class="main-header-item"><a href="/admin/add-product" class="<%= path === '/add-product' ? 'active' : ' ' %> ">add produtos</a></li>                
-                <% } %> 
             <% } %> 
+            <% } %>
+             
 
         </ul>
 
         <!--itens da direita-->
-        <ul class="dropdown">
-            <li class="main-header-item drop-item">
-                <p>
-                <% if(!loggedIn){ %>
-                entrar
-                </p>
-                <ul>
-                    <li class="main-header-item"><a href="/login" class="<%= path === '/login' ? 'active' : ' ' %> ">login</a></li>
-                    <li class="main-header-item"><a href="/signup" class="<%= path === '/signup' ? 'active' : ' ' %> ">cadastro</a></li>
-                </ul>
-                <% }else{ %>
-                    Olá, <%= user.name%> 
-                </p>
-                <ul>
-                    <li class="main-header-item">
-                        <form action="/logout" method="POST">
-                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">  
-                            <button type="submit">logout</button>
-                        </form>
+        <ul>
+            <% if(loggedIn){ %>
+            
+            <li class="main-header-item"><a href="/cart" class="<%= path === '/cart' ? 'active' : ' ' %> "><i class="fas fa-shopping-cart"></i></a></li>
+
+            <% } %>
+            <li>
+                <ul class="dropdown">
+                    <li class="main-header-item drop-item">
+                        <% if(!loggedIn){ %>
+                        <p> entrar <i class="fas fa-chevron-down"></i></p>
+                        <ul>
+                            <li class="main-header-item"><a href="/login" class="<%= path === '/login' ? 'active' : ' ' %> ">login</a></li>
+                            <li class="main-header-item"><a href="/signup" class="<%= path === '/signup' ? 'active' : ' ' %> ">cadastro</a></li>
+                        </ul>
+                        <% }else{ %>
+                        <p> Olá, <%= user.name%> <i class="fas fa-chevron-down"></i></p>
+                        <ul>
+                            <li class="main-header-item"><a href="/orders" class="<%= path === '/orders' ? 'active' : ' ' %> ">compras</a></li>
+                            <li class="main-header-item">
+                                <form action="/logout" method="POST">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">  
+                                    <button type="submit">logout</button>
+                                </form>
+                            </li>
+                        </ul>
+                        <% } %> 
                     </li>
                 </ul>
-                <% } %> 
             </li>
         </ul>
+        
 
 
 

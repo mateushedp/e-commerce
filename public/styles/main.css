@@ -31,6 +31,9 @@ a:focus, button:focus {
 }
 
 .btn {
+    text-align: center;
+
+    font-family: 'Poppins';
     display: inline-block;
     text-decoration: none;
     margin: 5px auto;
@@ -69,6 +72,12 @@ a:focus, button:focus {
     justify-content: space-between;
 }
 
+.main-header-nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
 
 .main-header-item,
 .main-header-item a,
@@ -76,6 +85,7 @@ a:focus, button:focus {
     margin: 0 10px;
     padding: 0;
     text-decoration: none;
+    text-align: center;
     color: white;
     font: inherit;
     background: transparent;
@@ -95,6 +105,15 @@ a:focus, button:focus {
     outline: none;
 }
 
+.fa-shopping-cart {
+    color: white;
+    font-size: 28px;
+}
+
+.fa-chevron-down {
+    font-size: 15px;
+}
+
 .dropdown {
     position: relative;
     list-style: none;
@@ -108,7 +127,6 @@ a:focus, button:focus {
 
 .dropdown ul {
     width: 200px;
-    height: 100px;
     border: 2px solid #238c91;
     border-top: none;
     background-color: white;
@@ -119,6 +137,7 @@ a:focus, button:focus {
     text-align: center;
     display: none;
     border-radius: 0 0 5px 5px;
+    flex-shrink: 1;
 }
 
 .dropdown li:hover > ul {
@@ -128,7 +147,7 @@ a:focus, button:focus {
 
 .dropdown ul li{
     width: 100%;
-    height: 50%;
+    height: 50px;
     margin: 0;
 }
 

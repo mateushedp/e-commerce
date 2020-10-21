@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const stripe = require('stripe')(process.env.STRIPE_API)
 const PDFDocument = require('pdfkit');
 const Product = require('../models/Product');
 const User = require('../models/User');
@@ -136,22 +137,44 @@ exports.PostCartDeleteProduct = (req, res, next) => {
 }
 
 exports.GetCheckout = (req, res, next) => {
+    let products;
+    let total = 0;
+
     User.findByPk(req.session.user.id)
     .then(user => {
         user.getCart()
         .then(cart => {
             return cart.getProducts({include: ['images']})
-            .then(products => {
-                let total = 0;
+            .then(prods => {
+                products = prods;
+                total = 0;
                 for(product of products){
                     total += product.price * product.cartItem.quantity;
                 }
-                console.log(total);
+                
+                return stripe.checkout.sessions.create({
+                    payment_method_types: ['card'],
+                    line_items: products.map(product => {
+                        return {
+                            name: product.title,
+                            description: product.description,
+                            amount: product.price * 100,
+                            currency: 'brl',
+                            quantity: product.cartItem.quantity
+                        }
+                    }),
+                    success_url: req.protocol + '://' + req.get('host') + '/checkout/success',
+                    cancel_url: req.protocol + '://' + req.get('host') + '/checkout/cancel'
+                })
+                
+            })
+            .then(session => {
                 res.render('checkout', {
                     prods: products,
                     path: '/checkout',
                     pageTitle: "Finalizar Compra",
-                    totalSum: total
+                    totalSum: total,
+                    sessionId: session.id
                 })
             })
             .catch(errorHandler(next));
@@ -159,6 +182,39 @@ exports.GetCheckout = (req, res, next) => {
         .catch(errorHandler(next));
     })
 }
+
+exports.GetCheckoutSuccess = (req, res, next) => {
+    let fetchedCart;
+    let thisUser
+    User.findByPk(req.session.user.id)
+    .then(user => {
+        thisUser = user;
+        user.getCart()
+        .then(cart => {
+            fetchedCart = cart;
+            return cart.getProducts();
+        })
+        .then(products => {
+            return thisUser.createOrder()
+            .then(order => {
+                order.addProducts(products.map(product => {
+                    product.orderItem = {quantity: product.cartItem.quantity};
+                    return product;
+                }))
+            })
+        })
+        .then(() => {
+            return fetchedCart.setProducts(null);
+        })
+        .then(() => {
+            req.session.save(() =>{
+                res.redirect('/orders');
+            })
+        })
+        .catch(errorHandler(next));
+    })
+}
+
 
 exports.PostOrder = (req, res, next) => {
     let fetchedCart;

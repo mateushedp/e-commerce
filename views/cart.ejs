@@ -42,10 +42,13 @@
             <p>Produtos: <br> <p class="cart-summary-price">R$ <%= totalSum.toFixed(2) %></p></p>
             <p>Frete: <br> <p class="cart-summary-price"> - </p></p></p>
             <p>Total: <br> <p class="cart-summary-price">R$ <%= totalSum.toFixed(2) %></p></p></p>
-            <form action="/create-order" method="POST" class="center">
+            <!-- <form action="/create-order" method="POST" class="center">
                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                <button type="submit" class="btn">Order Now</button>
-            </form>
+            </form> -->
+            <div class="center">
+               <a href="/checkout" class="btn ">Order Now</a>
+            </div>
          </div>
       </div>
       

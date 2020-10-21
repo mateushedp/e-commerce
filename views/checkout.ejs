@@ -7,7 +7,30 @@
    <%- include('partials/navigation') %>
 
    <main>
-    
+      <div class="cart-summary">
+         <h3>Resumo da compra:</h3>
+         <p>Produtos: <br> <p class="cart-summary-price">R$ <%= totalSum.toFixed(2) %></p></p>
+         <p>Frete: <br> <p class="cart-summary-price"> - </p></p></p>
+         <p>Total: <br> <p class="cart-summary-price">R$ <%= totalSum.toFixed(2) %></p></p></p>
+
+         <!-- <form action="/create-order" method="POST" class="center">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn">Order Now</button>
+         </form> -->
+      </div>
+      <div>
+         <button type="submit" id="order-btn" class="btn">order</button>
+         <script src="https://js.stripe.com/v3/"></script>
+         <script>
+            var stripe = Stripe('pk_test_51HePlDDBy5pwe3htTzZiUu3gGr2zm8Kj6AsAlq8MluZCzp1hI5CBYKWLlEl9JUSnLnO2rhjz8Su6FCYWQnH95yYr00TST8Zv7e');
+            var orderBtn = document.getElementById('order-btn');
+            orderBtn.addEventListener('click', function(){
+               stripe.redirectToCheckout({
+                  sessionId: '<%= sessionId %>'
+               });
+            }) 
+         </script>
+      </div>
    </main>
 
    <%- include('partials/footer') %>
