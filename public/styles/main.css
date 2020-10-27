@@ -26,6 +26,10 @@ h2 {
     margin: 10px;
 }
 
+ul {
+    list-style: none;
+}
+
 a:focus, button:focus {
     outline: none;
 }
@@ -187,12 +191,47 @@ main {
     height: 280px;
     margin:20px 35px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
+    position: relative;
     border-radius: 5px;
 }
 
 .product-card img {
     width: 100%;
     height: 210px;
+}
+
+.admin-functions {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+}
+
+.admin-functions a {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: white;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid #238c91;
+    margin-left: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
+    transition: 0.1s ease-in-out;
+    cursor: pointer;
+}
+
+.admin-functions a:hover {
+    height: 55px;
+    width: 55px;
+}
+
+.admin-functions a i {
+    font-size: 20px;
+    color:#238c91;
 }
 
 .product-card div {
@@ -324,12 +363,6 @@ main {
     font-size: 24px;
 }
 
-.buttons{
-    margin: 10px;
-    text-align: center;
-    height: 100px;
-}
-
 /* forms */
 
 .forms-body {
@@ -428,7 +461,6 @@ main {
 }
 
 .cart-item.description {
-    
     height: 60px;
 }
 
@@ -497,7 +529,80 @@ main {
     margin-top: 0;
 }
 
+/*orders*/
 
+
+.order-list {
+    width: 1000px;
+    margin: auto;
+}
+.order-item {
+    border: 1px solid #7f8788;
+    height: 150px;
+    margin-bottom: 10px;
+}
+
+.order-item-grid {
+    display: grid;
+    grid-template-columns: 33%;
+}
+
+.order-item-col {
+    height: 150px;
+}
+
+.order-item-col.col-1 {
+    grid-column: 1;
+    position: relative;
+    z-index: 1;
+}
+
+.order-item-col.col-1:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    border-right: 1px solid #7f8788;
+}
+
+.order-item-col.col-2 {
+    grid-column: 2;
+    position: relative;
+    z-index: 1;
+}
+
+.order-item-col.col-2:before{
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    border-right: 1px solid #7f8788;
+}
+
+.order-item-col.col-3 {
+    grid-column: 3;
+}
+
+.order-item-carousel {
+    margin: auto;
+    margin-top: 15px;
+    width: 70px;
+    height: 90px;
+}
+
+.order-item-carousel img{
+    width: 100%;
+    height: 100%;
+}
+
+.order-item-text {
+    font-size: 16px;
+    text-align: left;
+    width: 70%;
+    margin: 10px auto;
+}
 /*messages */
 .user-message {
     text-align: center;
@@ -514,8 +619,6 @@ main {
     border: 2px solid #de1d1d;
     background-color:  #de1d1d;
 }
-
-
 
 /*footer*/
 footer {

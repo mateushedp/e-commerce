@@ -145,7 +145,7 @@ exports.PostEditProduct = async (req, res, next) => {
 }
 
 exports.DeleteProduct = (req, res, next) => {
-    const id = req.body.id;
+    const id = req.params.id;
 
     Product.destroy(
         {
@@ -153,7 +153,13 @@ exports.DeleteProduct = (req, res, next) => {
         })
         .then(() => {
             console.log('Product deleted.');
-            res.redirect('/');
+            res.status(200).json({
+                message: 'Product deleted.'
+            });
         })
-        .catch(errorHandler(next));
+        .catch(error => {
+            res.status(500).json({
+                message: 'Deleting product failed.'
+            })
+        });
 }

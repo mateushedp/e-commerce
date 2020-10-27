@@ -12,7 +12,7 @@ router.get('/add-product', isAuth, isAdmin, adminController.GetAddProduct);
 router.post('/add-product', validateAddProduct, isAuth, isAdmin, adminController.PostAddProduct);
 router.get('/edit-product/:id', isAuth, isAdmin, adminController.GetEditProduct);
 router.post('/edit-product', validateEditProduct,  isAuth, isAdmin, adminController.PostEditProduct);
-router.post('/delete-product', isAuth, isAdmin, adminController.DeleteProduct);
+router.delete('/product/:id', isAuth, isAdmin, adminController.DeleteProduct);
 
 module.exports = router;
 

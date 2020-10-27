@@ -14,8 +14,25 @@
 
          <% for(prod of prods) { %>
             <div class="product-card">
+               <% if(loggedIn){ %>
+                  <% if(user.isAdmin){ %>  
+                  <div class="admin-functions">
+                     <a href="/admin/edit-product/<%= prod.id %>"><i class="fas fa-edit"></i></a>
+                     <input type="hidden" value="<%=prod.id%>" name="id">
+                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                     <a onclick="deleteProduct(this)"><i class="fas fa-trash-alt"></i></a>
+
+                      <!-- <form action="/admin/delete-product" method="POST">
+                          <input type="hidden" value="<%=prod.id%>" name="id">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <button class="btn">Delete</button>
+                      </form> -->
+                  </div>
+                  <% } %>
+                  <% } %>  
                <a href="/details/<%= prod.id %>">
-                  <img src="/<%=prod.images[0].path%> " alt=""> 
+                  <img src="/<%=prod.images[0].path%> " alt="">
+
                   
                </a>
                <div>

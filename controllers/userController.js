@@ -256,7 +256,7 @@ exports.GetOrders = (req, res, next) => {
         res.render('orders', {
             orders: orders,
             path: '/orders',
-            pageTitle: "Seu Pedido"
+            pageTitle: "Seu Pedido",
         })
 
     })

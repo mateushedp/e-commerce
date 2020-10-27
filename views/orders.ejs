@@ -7,19 +7,45 @@
    <%- include('partials/navigation') %>
 
    <main>
-      <h2>Compras</h2>
+      <h2>Meus pedidos</h2>
       
       <% if (orders.length>0) { %>
-        <div class="grid">
-        <ul>
+        <div>
+        <ul class="order-list">
         <% for(order of orders) { %>
-            <li>
-                <h3>ID: #<%= order.id  %> - <a href="/orders/<%= order.id %> ">Fatura</a></h3>
-                <ul>
-                    <% for(item of order.products) {%> 
-                        <li><%= item.title %> - (<%= item.orderItem.quantity %>)  </li>
-                    <% } %> 
-                </ul>
+            <li class="order-item">
+                <div class="order-item-grid">
+                    <div class="order-item-col col-1">
+                        <div class="order-item-carousel">
+                            <img src="../images/WindUp.jpg">
+                        </div>
+                        <div class="order-item-text">
+                            
+                            <% let totalQuantity = 0; %> 
+                            <% let totalSum = 0; %> 
+                            <% for(product of order.products){
+                                totalQuantity+= product.orderItem.quantity;  
+                                totalSum += product.price * product.orderItem.quantity; 
+                             } %> 
+                            <p>Quantidade de produtos: <%= totalQuantity %> </p>
+                        </div>
+                    </div>
+                    <div class="order-item-col col-2">
+                        <div class="order-item-text">
+                            <p>Previsão de entrega:</p>
+                            <p><strong>Entrega Concluída</strong></p>
+                        </div>
+                    </div>
+                    <div class="order-item-col col-3">
+                        <div class="order-item-text">
+                            <p>Pedido nº: #<%= order.id  %></p>
+                            <p>Data do pedido: <%= order.createdAt.getDate() %> / <%= order.createdAt.getMonth()+1 %> / <%= order.createdAt.getFullYear() %>   </p>
+                            <p>Total do pedido: R$ <%= totalSum.toFixed(2) %> </p>
+                            <p><strong><a href="/orders/<%= order.id %> ">Fatura</a></strong></p>
+                        </div>
+                    </div>
+                    
+                </div>
             </li>
             
          
@@ -28,7 +54,7 @@
         </div>
       
         <% }else{ %>
-        <h2>Nada aqui!</h2>
+        <h2>Você ainda não fez nenhum pedido!</h2>
         <% } %>   
       
 
